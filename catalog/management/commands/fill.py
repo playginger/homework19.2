@@ -18,7 +18,7 @@ class Command(BaseCommand):
              'category': 2, 'product_prise': 15000},
             {'product_name': 'Клавиатура и мышь', 'product_description': 'Что бы ваши пальчики были в тонусе,'
                                                                          ' и в сложных катках вы были MVP',
-             'category': 2, 'product_prise': 123000}
+             'category': 2, 'product_prise': 5000}
         ]
 
         product_for_create = []
