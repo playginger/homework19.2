@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         product_create = [
-            {'product_name': 'ПК', 'product_description': 'Игровые, мощные, бомбические ПК',
+            {'product_name': 'Cистемные блоки', 'product_description': 'Игровые, мощные, бомбические ПК',
              'category': 2, 'product_prise': 123000},
             {'product_name': 'Звук', 'product_description': 'Крутая стереосистема, соседи будут не рады',
              'category': 1, 'product_prise': 50000},
@@ -24,7 +24,5 @@ class Command(BaseCommand):
         product_for_create = []
         for product in product_create:
             product_for_create.append(Product(**product))
-
-        print(product_for_create)
 
         Product.objects.bulk_create(product_for_create)
