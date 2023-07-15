@@ -7,6 +7,7 @@ from catalog.models import Category, Product
 def index(request):
     context = {
         'object_list': Category.objects.all(),
+        'products': Product.objects.all(),
         'title': 'PowerPC Shop'
     }
     return render(request, 'catalog/index.html', context)
@@ -20,13 +21,7 @@ def product(request):
     return render(request, 'catalog/product.html', context)
 
 
-def category_product(request, pk):
-    category_item = Category.objects.get(pk=pk)
-    context = {
-        'object_list': Product.objects.filter(category_id=pk),
-        'title': 'Товары'
-    }
-    return render(request, 'catalog/product.html', context)
+
 
 def home(request):
     return render(request, 'catalog/home.html')

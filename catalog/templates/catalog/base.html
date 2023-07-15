@@ -15,6 +15,7 @@
 
 <body>
 
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">Computer world</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -58,7 +59,8 @@
             <p>Добро пожаловать!
                 Это магазин современных решений в мире персональных компьютеров и комплектующих Computer world.
             </p>
-            <p><a class="btn btn-secondary btn-lg" href="{% url 'catalog:contacts' %}" role="button">Информация &raquo;</a></p>
+            <p><a class="btn btn-secondary btn-lg" href="{% url 'catalog:contacts' %}" role="button">Информация
+                &raquo;</a></p>
         </div>
     </div>
 
@@ -81,7 +83,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script src="{%static 'js/popper.min.js' %}"></script>
-<script src="{%static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>
