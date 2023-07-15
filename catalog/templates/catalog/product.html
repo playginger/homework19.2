@@ -3,17 +3,23 @@
 {% load my_tags %}
 {% block content %}
 
-    <div class="row">
+    <div class="row mt-5">
         {% for object in object_list %}
             <div class="col-md-4">
                 <h2>{{ object.name }}</h2>
-                <img src="/media/{{ object.image }}"/>
-
-                <img src="{{ object.image|mediapath }}"/>
-
-
-                <p>{{ object.description }}</p>
-                <p><a class="btn btn-primary" href="#" role="button">Details </a></p>
+                <h4 class="card-title text-warning">Системный блок игровой Thunderobot BW III Pro
+                    D</h4>
+                <h2 class="card-text text-dark">750$</h2>
+                <a href="#" class="btn btn-danger">Купить</a>
+            </div>
+            <p>{{ object.description }}</p>
+            <a class="btn btn-primary" href="#" role="button">Тип процессора-Intel Core i5 12400 2.5 ГГц
+                Оперативная память (RAM)-16 ГБ<br>
+                Графический контроллер-GeForce RTX 3060
+                Объем видеопамяти-12 ГБ<br>
+                Объем SSD-512 ГБ
+                Операционная система-DOS
+                Гарантия-1 год </a>
             </div>
         {% endfor %}
     </div>

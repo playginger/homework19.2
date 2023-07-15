@@ -8,7 +8,7 @@ def index(request):
     context = {
         'object_list': Category.objects.all(),
         'products': Product.objects.all(),
-        'title': 'PowerPC Shop'
+        'title': 'Computer world Shop'
     }
     return render(request, 'catalog/index.html', context)
 
