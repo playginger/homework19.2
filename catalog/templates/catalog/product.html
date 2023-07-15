@@ -1,0 +1,16 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+{% load static %}
+{% load my_tags %}
+    <div class="row">
+        {% for object in object_list%}
+        <div class="col-md-4">
+            <h2>{{object.name}}</h2>
+            <img src="{% static 'images/PC.jpg' %}" alt="PC" style="width: 350px; height: 225px;">
+            <p>{{object.description}}</p>
+            <p><a class="btn btn-primary" href="#" role="button">Details </a></p>
+        </div>
+        {% endfor %}
+     </div>
+{% endblock %}
