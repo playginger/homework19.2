@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'homework20', # Название БД
         'USER': 'postgres', # Пользователь для подключения
         'PASSWORD': '135790eeg',
