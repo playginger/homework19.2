@@ -8,10 +8,6 @@ class BloggingListView(ListView):
     template_name = 'blogging/blogging_list.html'
     context_object_name = 'blogging_list'
 
-    @classmethod
-    def as_view(cls):
-        pass
-
 
 class BloggingCreateView(CreateView):
     model = Blogging
