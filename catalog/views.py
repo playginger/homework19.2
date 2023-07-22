@@ -6,12 +6,14 @@ from catalog.models import Product
 
 class ProductListView(ListView):
     model = Product
-    template_name = 'catalog/index.html'
-
-
-class ProductDetailView(DetailView):
-    model = Product
     template_name = 'catalog/product.html'
+
+
+#class ProductDetailView(DetailView):
+#    model = Product
+#    template_name = 'catalog/product.html'
+#    context_object_name = 'product'
+
 
 
 def home(request):

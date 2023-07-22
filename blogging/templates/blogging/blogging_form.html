@@ -7,6 +7,14 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">
+                            {% if object %}
+                                Сохранить
+                            {% else %}
+                                Создать
+                            {% endif %}
+                        </button>
 
                     </form>
                 </div>
