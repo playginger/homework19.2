@@ -26,13 +26,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'catalog:product' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'catalog:index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'blogging:create' %}">Blog</a>
+                <a class="nav-link" href="{% url 'blogging:create' %}">Blog Сreate</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a class="nav-link disabled" href="{% url 'blogging:list' %}">Blog</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"

@@ -5,15 +5,15 @@
 {% block content %}
     <div class="row">
 
-        {% for product in products %}
+        {% for object in object_list%}
             <div class="col-md-4">
                 <div>
-                    {{ product.product_description|truncatechars:500 }}
+                    {{ object.product_description|truncatechars:500 }}
                 </div>
                 <div>
-                    <img src="/media/{{ product.img }}" style="width: 250px;height: 150px"/>
+                    <img src="/media/{{ object.img }}" style="width: 250px;height: 150px"/>
                     <br>
-                    <img src="{{ product.img|mediapath }}" style="width: 250px;height: 150px"/></img>
+                    <img src="{{ object.img|mediapath }}" style="width: 250px;height: 150px"/></img>
                 </div>
             </div>
 

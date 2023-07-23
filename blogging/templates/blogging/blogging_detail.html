@@ -1,0 +1,23 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+    <div class="card">
+        <h4 class="card-title text-danger">{{ object.header }}
+        </h4>
+    <p>{{ object.slug  }}</p>
+        <div class="row">
+            <div class="col-6">
+                <h2 class="card-text text-dark">{{ object.content}}</h2>
+            </div>
+            <div class="col-6">
+                {% if object.img %}
+                    <img src="{{ object.img|mediapath }}" style="width: 250px;height: 150px"/></img>
+                {% endif %}
+            </div>
+        </div>
+    <div class="card-footer">
+    Просмотры:{{ object.views }}
+    </div>
+
+{% endblock %}

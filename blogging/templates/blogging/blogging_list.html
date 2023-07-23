@@ -1,4 +1,31 @@
-{% for object in object_list %}
-    <p> {{object.header}} </p>
-    <p> {{object.content}}</p>
-{% endfor %}
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col-4">
+                <div class="card">
+                    <h4 class="card-title text-danger">{{ object.header }}
+                    </h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <h2 class="card-text text-dark">{{ object.content|truncatechars:30 }}</h2>
+                        </div>
+                        <div class="col-6">
+                            {% if object.img %}
+                                <img src="{{ object.img|mediapath }}" style="width: 250px;height: 150px"/></img>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="{% url 'blogging:detail' object.pk %}" class="btn btn-info">Просмотреть</a>
+                    <a href="{% url 'blogging:update' object.pk %}" class="btn btn-success">Редактировать</a>
+                    <a href="{% url 'blogging:delete' object.pk %}" class="btn btn-danger">Удалить</a>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
