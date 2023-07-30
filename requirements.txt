@@ -2,3 +2,5 @@ Django
 psycopg2-binary
 pillow
 ipython
+django-crontab
+apscheduler
