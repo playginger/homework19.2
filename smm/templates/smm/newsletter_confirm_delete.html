@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <p> Хотите удалить запись "{{ object.mailing_time }}"? </p>
+                            <button type="submit" class="btn btn-success">
+                                Подтвердить
+                            </button>
+                            <a href="{% url 'smm:letter_list' %}" class="btn btn-warning"> Отмена </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
