@@ -1,23 +1,26 @@
 {% extends 'catalog/base.html' %}
 
+
 {% block content %}
-  <h1>Удалить продукт</h1>
-    <div class="col-12">
-        <div class="row">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            <p>Вы уверены, что хотите удалить"{{ product.product_name }}"?</p>>
-                            <button type="submit" class="btn btn-danger">
-                                Подтвердить
-                            </button>
-                            <a href="{% url 'catalog:product' %}" class="btn btn-warning"> Отмена </a>
-                        </form>
-                    </div>
-                </div>
+    <div class="col-5">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    Удалить продукт
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Вы уверены, что хотите удалить"{{ product.product_name }}"?</p>>
+                    <button type="submit" class="btn btn-danger">
+                        Подтвердить
+                    </button>
+                    <a href="{% url 'catalog:product' %}" class="btn btn-warning"> Отмена </a>
+                </form>
             </div>
         </div>
     </div>
+
+
 {% endblock %}
