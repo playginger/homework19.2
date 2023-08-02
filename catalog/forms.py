@@ -6,7 +6,7 @@ from catalog.models import Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['product_name', 'product_description', 'img', 'product_prise']
+        fields = ['product_name', 'product_description', 'img', 'category','product_prise']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -28,13 +28,13 @@ def create_product(request):
             return redirect('product_list')
     else:
         form = ProductForm()
-    return render(request, 'create_product.html', {'form': form})
+    return render(request, 'catalog/create_product.html', {'form': form})
 
 
 # Список продуктов
 def product_list(request):
     products = Product.objects.all()
-    return render(request, 'product_list.html', {'products': products})
+    return render(request, 'catalog/product_list.html', {'products': products})
 
 
 # Обновление продукта
@@ -47,7 +47,7 @@ def update_product(request, pk):
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
-    return render(request, 'update_product.html', {'form': form, 'product': product})
+    return render(request, 'catalog/update_product.html', {'form': form, 'product': product})
 
 
 # Удаление продукта
@@ -56,4 +56,4 @@ def delete_product(request, pk):
     if request.method == 'POST':
         product.delete()
         return redirect('product_list')
-    return render(request, 'delete_product.html', {'product': product})
+    return render(request, 'catalog/product_confirm_delete.html', {'product': product})
