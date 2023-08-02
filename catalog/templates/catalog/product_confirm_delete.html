@@ -13,10 +13,10 @@
                 <form method="post">
                     {% csrf_token %}
                     <p>Вы уверены, что хотите удалить"{{ product.product_name }}"?</p>>
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit" class="btn btn-success">
                         Подтвердить
                     </button>
-                    <a href="{% url 'catalog:product' %}" class="btn btn-warning"> Отмена </a>
+                    <a href="{% url 'catalog:product' %}" class="btn btn-danger"> Отмена </a>
                 </form>
             </div>
         </div>
