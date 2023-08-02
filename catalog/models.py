@@ -2,17 +2,16 @@ from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
 
-
 class Category(models.Model):
     category_name = models.CharField(max_length=100, verbose_name='наименование')
     category_description = models.CharField(max_length=100, verbose_name='описание')
-    created_at = models.DateTimeField(auto_now_add=True)  # Добавленное
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.category_name} {self.category_description}'
 
     class Meta:
-        verbose_name = 'Наименование'
+        verbose_name = 'категория'
         verbose_name_plural = 'категории'
         ordering = ('category_name',)
 
@@ -20,7 +19,7 @@ class Category(models.Model):
 class Product(models.Model):
     product_name = models.CharField(max_length=100, verbose_name='наименование')
     product_description = models.CharField(max_length=100, verbose_name='описание')
-    img = models.ImageField( verbose_name='превью', **NULLABLE)
+    img = models.ImageField(verbose_name='превью', **NULLABLE)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     product_prise = models.IntegerField(default=0, verbose_name='Цена')
     product_prise_name = models.CharField(max_length=100, verbose_name='необязательное поле')
@@ -31,6 +30,21 @@ class Product(models.Model):
         return f'{self.product_name} {self.product_description}'
 
     class Meta:
-        verbose_name = 'категории'
-        verbose_name_plural = 'наименования'
+        verbose_name = 'продукт'
+        verbose_name_plural = 'продукты'
         ordering = ('product_name',)
+
+
+class Version(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    version_number = models.CharField(max_length=50)
+    version_name = models.CharField(max_length=100)
+    current_version = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.product} {self.version_number} {self.current_version}'
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
+        ordering = ('version_number',)

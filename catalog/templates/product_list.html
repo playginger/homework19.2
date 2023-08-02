@@ -1,0 +1,12 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+  <h1>Список продуктов</h1>
+  <ul>
+    {% for product in object_list %}
+      <li>{{ product.product_name }}</li>
+    {% empty %}
+      <li>Нет доступных продуктов</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
