@@ -1,12 +1,17 @@
 from django import forms
-from django.shortcuts import render, redirect
-from catalog.models import Product
+
+from catalog.models import Product, Version
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['product_name', 'product_description', 'img', 'category','product_prise']
+        fields = ['product_name', 'product_description', 'img', 'category', 'product_prise']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
 
     def clean(self):
         cleaned_data = super().clean()
@@ -19,41 +24,14 @@ class ProductForm(forms.ModelForm):
                 raise forms.ValidationError("Запрещенное слово в названии или описании продукта")
 
 
-# Создание нового продукта
-def create_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')
-    else:
-        form = ProductForm()
-    return render(request, 'catalog/create_product.html', {'form': form})
+class VersionForm(forms.ModelForm):
+    class Meta:
+        model = Version
+        fields = ['version_number', 'version_name', 'product']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
 
 
-# Список продуктов
-def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'catalog/product_list.html', {'products': products})
-
-
-# Обновление продукта
-def update_product(request, pk):
-    product = Product.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')
-    else:
-        form = ProductForm(instance=product)
-    return render(request, 'catalog/update_product.html', {'form': form, 'product': product})
-
-
-# Удаление продукта
-def delete_product(request, pk):
-    product = Product.objects.get(pk=pk)
-    if request.method == 'POST':
-        product.delete()
-        return redirect('product_list')
-    return render(request, 'catalog/product_confirm_delete.html', {'product': product})

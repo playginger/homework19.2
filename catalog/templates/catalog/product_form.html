@@ -1,22 +1,48 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
-    <div class="col-6">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">
-                    Добавление продукта
-                </h4>
+    <div class="col-12">
+        <form method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                Добавление продукта
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                            <div class="card-footer"></div>
+                        </div>
+                    </div>
+                </div>
+                {% if object %}
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    Версия
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                {{ formset.management_form }}
+                                {% for form in formset.forms %}
+                                    {{ form.as_p }}
+                                    {% if not forloop.last %}
+                                        <hr>
+                                    {% endif %}
+                                {% endfor %}
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                                <div class="card-footer"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-            <div class="card-body">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-success">Сохранить</button>
-
-                </form>
-                <div class="card-footer"></div>
-
-
+        </form>
+    </div>
 
 {% endblock %}

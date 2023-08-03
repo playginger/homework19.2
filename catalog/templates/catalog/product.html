@@ -14,6 +14,7 @@
                     <img src="{{ object.img|mediapath }}" style="width: 250px;height: 150px"/></img>
                     <h2 class="card-text text-dark">{{ object.product_prise_name }} {{ object.product_prise }} Рублёв</h2>
                     <a href="#" class="btn btn-success">Купить</a>
+                    <a href="{% url 'catalog:detail_product' object.pk %}" type="button" class="btn btn-success">Просмотр</a>
                     <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-success">Обновить</a>
                     <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
                 </div>
