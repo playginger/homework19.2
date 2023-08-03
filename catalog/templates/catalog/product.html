@@ -6,24 +6,26 @@
     <div class="col-12">
         <a class="btn btn-info" href="{% url 'catalog:create_product' %}">Добавить </a>
     </div>
-        <div class="row mt-3">
-            {% for object in object_list %}
-                <div class="col-md-5 mt-1">
-                    <h4 class="card-title text-danger">{{ object.product_name }}
-                    </h4>
-                    <img src="{{ object.img|mediapath }}" style="width: 250px;height: 150px"/></img>
-                    <h2 class="card-text text-dark">{{ object.product_prise_name }} {{ object.product_prise }} Рублёв</h2>
-                    <a href="#" class="btn btn-success">Купить</a>
-                    <a href="{% url 'catalog:detail_product' object.pk %}" type="button" class="btn btn-success">Просмотр</a>
-                    <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-success">Обновить</a>
-                    <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
+    <div class="row mt-3">
+        {% for object in object_list %}
+        <div class="col-md-5 mt-1">
+            <h4 class="card-title text-danger">{{ object.product_name }}
+            </h4>
+            <img src="{{ object.img|mediapath }}" style="width: 250px;height: 150px"/></img>
+            {% for version_item in object.version_set.all %}
+                <p>Актуальная версия:{{ version_item.version_number }}</p>
+            {% endfor %}
+                <h2 class="card-text text-dark">{{ object.product_prise_name }} {{ object.product_prise }} Рублёв</h2>
+                <a href="#" class="btn btn-success">Купить</a>
+                <a href="{% url 'catalog:detail_product' object.pk %}" type="button"
+                   class="btn btn-success">Просмотр</a>
+                <a href="{% url 'catalog:update_product' object.pk %}" type="button"
+                   class="btn btn-success">Обновить</a>
+                <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
                 </div>
                 <div class="col-md-5">
                     <a class="btn btn-info" href="#" role="button">{{ object.product_description }}</a>
                 </div>
             {% endfor %}
-        </div>
-
-
-
+    </div>
 {% endblock %}
