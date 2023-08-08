@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'catalog',
     'blogging',
     'smm',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'homework20',  # Название БД
+        'NAME': 'homework20.1',  # Название БД
         'USER': 'postgres',  # Пользователь для подключения
         'PASSWORD': '135790eeg',
     }
@@ -131,6 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-CRONJOBS = [
-    ('*/5 * * * *', 'smm.winioctlcon.my_task')
-]
+AUTH_USER_MODEL = 'user.User'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'home'

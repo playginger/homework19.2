@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView, DetailView
 from catalog.forms import ProductForm, VersionForm
@@ -64,3 +66,42 @@ def contacts(request):
         message = request.POST.get('message')
         print(f'{name} ({phone}) {message}')
     return render(request, 'catalog/contacts.html')
+
+
+@login_required
+def create_product(request):
+    if request.method == 'POST':
+        # Создание продукта с текущим пользователем в качестве владельца
+
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = form.save()
+
+            product.owner = request.user
+            product.save()
+
+        return redirect('product_list')
+    else:
+        # Отображение формы создания продукта
+        return render(request, 'create_product.html')
+
+
+@login_required
+def edit_product(request, product_id):
+    # Получение продукта по идентификатору
+    product = get_object_or_404(Product, id=product_id)
+
+    if product.owner != request.user:
+        # Проверка, что текущий пользователь является владельцем продукта
+        # Обработка случая, когда пользователь пытается изменить чужой продукт
+        return redirect('product_list')
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+          pass
+        return redirect('product_list')
+    else:
+        # Отображение формы редактирования продукта
+        return render(request, 'edit_product.html', {'product': product})
+
