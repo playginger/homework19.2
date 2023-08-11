@@ -10,12 +10,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.views import LogoutView as BaseLogoutView, LoginView
-
 from config import settings
 from user.email_verification_token_generator import email_verification_token
 from user.forms import RegisterForm
 from user.models import User
-
 
 
 class UserProfileView(UpdateView):
@@ -63,6 +61,7 @@ class RegisterView(CreateView):
 
     success_url = reverse_lazy('user:login')
     template_name = 'user/register.html'
+
 
 
 class ActivateView(View):

@@ -133,10 +133,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'user.User'
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'PlayGinger@yandex.ru'
-EMAIL_HOST_PASSWORD = 'zdmrnkbuqyavgyam'
+EMAIL_HOST_USER = 'lolliginger@mail.ru'
+EMAIL_HOST_PASSWORD = 'j25iWRxSFSndbZWN5k0E'
 EMAIL_USE_SSL = True
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+EMAIL_SENDING_SIMULATION_MODE = True

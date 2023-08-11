@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -20,16 +21,24 @@ class ProductListView(ListView):
     #    return queryset
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product')
+    login_url = 'user:login'
+    def form_valid(self, form):
+      self.object = form.save()
+      self.object.owner = self.request.user
+      self.object.save()
+      return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product')
+    login_url = 'user:login'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -53,9 +62,10 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product')
+    login_url = 'user:login'
 
 
 class CategoryListView(ListView):
@@ -72,22 +82,21 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-@login_required
-def create_product(request):
-    if request.method == 'POST':
-        # Создание продукта с текущим пользователем в качестве владельца
-
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product = form.save()
-
-            product.owner = request.user
-            product.save()
-
-        return redirect('product_list')
-    else:
-        # Отображение формы создания продукта
-        return render(request, 'user/create_product.html')
+# @login_required
+# def create_product(request):
+#    if request.method == 'POST':
+#        # Отображение формы создания продукта
+#        return render(request, 'user/create_product.html')
+#     #Создание продукта с текущим пользователем в качестве владельца
+#
+#    form = ProductForm(request.POST)
+#    if form.is_valid():
+#        product = form.save()
+#
+#        product.owner = request.user
+#        product.save()
+#
+#    return redirect('product_list')
 
 
 @login_required
@@ -95,16 +104,15 @@ def edit_product(request, product_id):
     # Получение продукта по идентификатору
     product = get_object_or_404(Product, id=product_id)
 
-    if product.owner != request.user:
+    if product.owner == request.user:
         # Проверка, что текущий пользователь является владельцем продукта
         # Обработка случая, когда пользователь пытается изменить чужой продукт
         return redirect('product_list')
 
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            pass
-        return redirect('product_list')
-    else:
+    if request.method != 'POST':
         # Отображение формы редактирования продукта
         return render(request, 'user/edit_product.html', {'product': product})
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        pass
+    return redirect('product_list')
