@@ -4,3 +4,4 @@ pillow
 ipython
 django-crontab
 apscheduler
+redis

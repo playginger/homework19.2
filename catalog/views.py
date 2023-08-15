@@ -1,3 +1,5 @@
+from linecache import cache
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,7 +8,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView, DetailView
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from config import settings
 
 
 class ProductListView(ListView):
@@ -26,12 +29,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product')
     login_url = 'user:login'
-    def form_valid(self, form):
-      self.object = form.save()
-      self.object.owner = self.request.user
-      self.object.save()
-      return super().form_valid(form)
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -58,8 +61,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
+    permission_required = 'catalog.view_product'
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
@@ -82,23 +86,6 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-# @login_required
-# def create_product(request):
-#    if request.method == 'POST':
-#        # Отображение формы создания продукта
-#        return render(request, 'user/create_product.html')
-#     #Создание продукта с текущим пользователем в качестве владельца
-#
-#    form = ProductForm(request.POST)
-#    if form.is_valid():
-#        product = form.save()
-#
-#        product.owner = request.user
-#        product.save()
-#
-#    return redirect('product_list')
-
-
 @login_required
 def edit_product(request, product_id):
     # Получение продукта по идентификатору
@@ -116,3 +103,23 @@ def edit_product(request, product_id):
     if form.is_valid():
         pass
     return redirect('product_list')
+
+
+def get_category_data():
+    if settings.CACHE_ENABLED:
+        key = 'category_list'
+        category_list = cache.get(key)
+        if category_list is None:
+            print('No category cache detected. I gonna cache it')
+            category_list = Category.objects.all()
+            cache.set(key, category_list)
+    else:
+        category_list = Category.objects.all()
+    return category_list
+
+
+class CategoryView(ListView):
+    model = Category
+
+    def get_queryset(self, *args, **kwargs):
+        return get_category_data()
