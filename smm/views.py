@@ -1,33 +1,33 @@
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
-from smm.models import ServiceClient, Newsletter, Message, Mailinglogs
+from smm.models import  Newsletter, Message, Mailinglogs
 
 
-class ServiceClientListView(ListView):
-    model = ServiceClient
-
-
-class ServiceClientCreateView(CreateView):
-    model = ServiceClient
-    fields = ['email', 'fullname', 'comment']
-    success_url = reverse_lazy('smm:list')
-
-
-class ServiceClientDetailView(DetailView):
-    model = ServiceClient
-
-
-class ServiceClientUpdateView(UpdateView):
-    model = ServiceClient
-    fields = ['email', 'fullname', 'comment']
-
-    def get_success_url(self):
-        return reverse('smm:detail', args=[self.kwargs.get('pk')])
-
-
-class ServiceClientDeleteView(DeleteView):
-    model = ServiceClient
-    success_url = reverse_lazy('smm:list')
+# class ServiceClientListView(ListView):
+#     model = ServiceClient
+#
+#
+# class ServiceClientCreateView(CreateView):
+#     model = ServiceClient
+#     fields = ['email', 'fullname', 'comment']
+#     success_url = reverse_lazy('smm:list')
+#
+#
+# class ServiceClientDetailView(DetailView):
+#     model = ServiceClient
+#
+#
+# class ServiceClientUpdateView(UpdateView):
+#     model = ServiceClient
+#     fields = ['email', 'fullname', 'comment']
+#
+#     def get_success_url(self):
+#         return reverse('smm:detail', args=[self.kwargs.get('pk')])
+#
+#
+# class ServiceClientDeleteView(DeleteView):
+#     model = ServiceClient
+#     success_url = reverse_lazy('smm:list')
 
 
 class NewsletterListView(ListView):

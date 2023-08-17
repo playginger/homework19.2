@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'homework20.1',  # Название БД
+        'NAME': 'homework20.2',  # Название БД
         'USER': 'postgres',  # Пользователь для подключения
         'PASSWORD': '135790eeg',
     }
@@ -136,7 +136,7 @@ AUTH_USER_MODEL = 'user.User'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'lolliginger@mail.ru'
-EMAIL_HOST_PASSWORD = 'j25iWRxSFSndbZWN5k0E'
+EMAIL_HOST_PASSWORD = 'zYpd94k4sSatKBpmzerA'
 EMAIL_USE_SSL = True
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -152,3 +152,7 @@ if CACHE_ENABLED:
             "TIMEOUT": 3
         }
     }
+
+CRONJOBS = [
+    ('*/5 * * * *', 'django.core.management.call_command', ['fill']),
+]

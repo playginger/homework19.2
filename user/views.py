@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
-from django.views.generic import UpdateView, CreateView
+from django.views.generic import UpdateView, CreateView, ListView
 from django.contrib.auth.views import LogoutView as BaseLogoutView, LoginView
 from config import settings
 from user.email_verification_token_generator import email_verification_token
@@ -41,7 +41,6 @@ class UserProfileView(UpdateView):
 
 
 class RegisterView(CreateView):
-
     model = User
     form_class = RegisterForm
 
@@ -61,7 +60,6 @@ class RegisterView(CreateView):
 
     success_url = reverse_lazy('user:login')
     template_name = 'user/register.html'
-
 
 
 class ActivateView(View):
@@ -94,6 +92,11 @@ class LogoutView(BaseLogoutView):
 
 class UserLoginView(LoginView):
     template_name = 'user/login.html'
+
+
+class UserList(ListView):
+    template_name = 'user/user_list.html'
+    queryset = User.objects.all()
 
 
 # Users = get_user_model()

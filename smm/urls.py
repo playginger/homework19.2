@@ -1,18 +1,15 @@
 from django.urls import path
 from smm.apps import SmmConfig
-from smm.views import ServiceClientListView, ServiceClientCreateView, ServiceClientDetailView, ServiceClientUpdateView, \
-    ServiceClientDeleteView, NewsletterListView, NewsletterCreateView, NewsletterDetailView, NewsletterUpdateView, \
-    NewsletterDeleteView, MessageListView, MessageCreateView, MessageDetailView, MessageUpdateView, MessageDeleteView, \
-    MailinglogsListView, MailinglogsCreateView, MailinglogsDetailView, MailinglogsUpdateView, MailinglogsDeleteView
+from smm.views import *
 
 app_name = SmmConfig.name
 
 urlpatterns = [
-    path('', ServiceClientListView.as_view(), name='list'),
-    path('smm_create/', ServiceClientCreateView.as_view(), name='create'),
-    path('smm_detail/<int:pk>/', ServiceClientDetailView.as_view(), name='detail'),
-    path('smm_update/<int:pk>/', ServiceClientUpdateView.as_view(), name='update'),
-    path('smm_delete/<int:pk>/', ServiceClientDeleteView.as_view(), name='delete'),
+    # path('', ServiceClientListView.as_view(), name='list'),
+    # path('smm_create/', ServiceClientCreateView.as_view(), name='create'),
+    # path('smm_detail/<int:pk>/', ServiceClientDetailView.as_view(), name='detail'),
+    # path('smm_update/<int:pk>/', ServiceClientUpdateView.as_view(), name='update'),
+    # path('smm_delete/<int:pk>/', ServiceClientDeleteView.as_view(), name='delete'),
 
     path('news_letter_list/', NewsletterListView.as_view(), name='letter_list'),
     path('news_letter_create/', NewsletterCreateView.as_view(), name='letter_create'),

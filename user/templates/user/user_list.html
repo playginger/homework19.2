@@ -1,0 +1,18 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block content %}
+
+    <div class="col-12">Список
+    </div>
+    <div class="row mt-3">
+        {% for object in object_list %}
+        <div class="col-md-5 mt-1">
+            <h4 class="card-title text-danger">{{ object.fullname }}
+            </h4>
+            <img src="{{ object.img|mediapath }}" style="width: 250px;height: 150px"/></img>
+        </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
