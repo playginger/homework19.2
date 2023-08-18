@@ -5,3 +5,4 @@ ipython
 django-crontab
 apscheduler
 redis
+django-crontab
